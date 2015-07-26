@@ -30,6 +30,10 @@ cachemean <- function(x, ...) {
       m
 }
 
+##Reads a matrix whose inverse has to be computed
+##Create a square matrix which is invertible and pass it as a parameter to this function
+##store the return value and pass it as a parameter to cachesolve to compute inverse
+
 makeCacheMatrix <- function(x = matrix()) {
       m <- NULL
       set <- function(y) {
@@ -38,6 +42,7 @@ makeCacheMatrix <- function(x = matrix()) {
       }
       get <- function() x
       setinverse <- function(solve) m <<- solve
+##solve(x) returns inverse of a square matrix
       getinverse <- function() m
       list(set = set, get = get,
            setinverse = setinverse,
@@ -47,9 +52,10 @@ makeCacheMatrix <- function(x = matrix()) {
 
 
 ## Write a short comment describing this function
-
+##subsequent calls to this cache solve will return -cached copy of inverse
+##rather than computing
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+## Return a matrix that is the inverse of 'x'
       m <- x$getinverse()
       if(!is.null(m)) {
             message("getting cached data")
